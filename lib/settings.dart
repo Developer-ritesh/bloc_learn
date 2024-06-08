@@ -1,4 +1,4 @@
-import 'package:bloc_learn/cubit/counter_cubit.dart';
+import 'package:bloc_learn/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,17 +7,17 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counterCubit = BlocProvider.of<CounterCubit>(context);
+    // final counterCubit = BlocProvider.of<CounterCubit>(context);
+    final counterBloc = BlocProvider.of<CounterBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
       ),
       body: Center(
-        child: BlocBuilder<CounterCubit, int>(
-          bloc: counterCubit,
+        child: BlocBuilder<CounterBloc, int>(
           builder: (context, counter) {
-            return Text(counterCubit.state.toString());
+            return Text(counterBloc.state.toString());
           },
         ),
       ),
@@ -26,7 +26,8 @@ class Settings extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              counterCubit.decrement();
+              // counterCubit.decrement();
+              counterBloc.add(CounterDecrimented());
             },
             tooltip: 'Increment',
             child: const Icon(Icons.remove),
@@ -36,7 +37,8 @@ class Settings extends StatelessWidget {
           ),
           FloatingActionButton(
             onPressed: () {
-              counterCubit.increment();
+              // counterCubit.increment();
+              counterBloc.add(CounterInceremented());
             },
             tooltip: 'Increment',
             child: const Icon(Icons.add),

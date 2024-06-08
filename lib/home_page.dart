@@ -1,5 +1,4 @@
 import 'package:bloc_learn/bloc/counter_bloc.dart';
-import 'package:bloc_learn/cubit/counter_cubit.dart';
 import 'package:bloc_learn/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final counterCubit = BlocProvider.of<CounterCubit>(context);
+    final counterBloc = BlocProvider.of<CounterBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,8 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text(
               'You have pushed the button this many times:',
             ),
-            BlocBuilder<CounterCubit, int>(
-              bloc: counterCubit,
+            BlocBuilder<CounterBloc, int>(
               builder: (context, counter) {
                 return Text(
                   '$counter',
@@ -47,7 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              counterCubit.decrement();
+              // counterBloc.decrement();
+              counterBloc.add(CounterDecrimented());
             },
             tooltip: 'Increment',
             child: const Icon(Icons.remove),
@@ -57,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           FloatingActionButton(
             onPressed: () {
-              counterCubit.increment();
+              counterBloc.add(CounterInceremented());
             },
             tooltip: 'Increment',
             child: const Icon(Icons.add),
